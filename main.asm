@@ -19,9 +19,9 @@ mov	cx, 23
 call	print_string
 
 ; Get number of drives
-xor	dl, dl
-mov	ah, 0x08
-int	0x13
+mov	ax, 0x0040
+mov	es, ax
+mov	dx, [es:0x0075]
 
 ; Print number of disk
 mov	al, dl
