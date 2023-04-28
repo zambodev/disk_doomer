@@ -36,7 +36,7 @@ jmp $
 
 %include "utils.asm"
 
-welcome_msg:	db	"Welcome in Disk Boomer!", 0
+welcome_msg:	db	"Welcome in Disk Doomer!", 0
 ndisk_msg:	db	"Number of disks found: ", 0
 boot_disk:	db	0
 
