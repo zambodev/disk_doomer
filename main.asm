@@ -59,28 +59,28 @@ main:
 
 	; Read from disk
 	mov	al, 0xe0
-	mov	dx, 0x01f6
+	mov	dx, 0x0176
 	out 	dx, al			; Send 0xe0 to master
-					; Skip sending null byte
-	mov	cl, 0x04		; 1 sector
+							; Skip sending null byte
+	mov	cl, 0x04			; 1 sector
 	mov	al, cl
-	mov	dx, 0x01f2
+	mov	dx, 0x0172
 	out 	dx, al			; Send sector count
 
 	mov	al, byte [lba_src]
-	mov	dx, 0x01f3		
+	mov	dx, 0x0173		
 	out 	dx, al			; Send first 8 bit of LBA
 
 	mov	al, byte [lba_src + 1]
-	mov	dx, 0x01f4		
+	mov	dx, 0x0174		
 	out 	dx, al			; Send next 8 bit of LBA
 
 	mov	al, byte [lba_src + 2]
-	mov	dx, 0x01f5		
+	mov	dx, 0x0175		
 	out 	dx, al			; Send next 8 bit of LBA
 
-	mov	al, 0x30		; Write sectors command
-	mov 	dx, 0x01f7
+	mov	al, 0x30			; Write sectors command
+	mov 	dx, 0x0177
 	out 	dx, al
 
 	.wait:
@@ -93,7 +93,8 @@ main:
 		mov 	bl, cl           ; write CL sectors
 		mul 	bx
 		mov 	cx, ax         ; RCX is counter for OUTSW
-		mov 	dx, 0x1f0       ; Data port, in and out
+		mov 	dx, 0x0170       ; Data port, in and out
+		mov		ax, 0xffff
 		mov 	si, di
 		rep 	outsw            ; out
  
@@ -108,15 +109,15 @@ main:
 
 	.loop:
 		mov	al, 0x30		; Write sectors command
-		mov 	dx, 0x01f7
+		mov 	dx, 0x0177
 		out 	dx, al
 
 		mov	al, 0x11
-		mov	dx, 0x01f0
+		mov	dx, 0x0170
 		out	dx, al
 
 		mov	al, 0xe7
-		mov	dx, 0x01f7
+		mov	dx, 0x0177
 		out	dx, al
 
 		dec	cx
